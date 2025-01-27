@@ -1,0 +1,59 @@
+global:
+  storageClass: "kind-csi-hostpath-storage-class"
+  enabled: true
+
+minio:
+  enabled: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1024Mi
+    requests:
+      cpu: 1000m
+      memory: 1024Mi
+  auth:
+    forceNewKeys: true
+    rootUser: admin
+    rootPassword: "password"
+  defaultBuckets: "space"
+  tls:
+    enabled: false
+  persistence:
+    size: "10Gi"
+    annotations:
+      helm.sh/resource-policy: "keep"
+
+postgresql:
+  enabled: true
+  image:
+    pullPolicy: Always
+  commonLabels:
+    "jetbrains.space/distribution": "standalone"
+  auth:
+    enablePostgresUser: true
+    postgresPassword: "password"
+    username: "space"
+    password: "password"
+    database: ""
+  architecture: standalone
+  primary:
+    podAnnotations: { }
+    resources:
+      limits:
+        memory: 1024Mi
+        cpu: 1000m
+      requests:
+        memory: 1024Mi
+        cpu: 1000m
+    persistence:
+      size: 1Gi
+      annotations:
+        helm.sh/resource-policy: "keep"
+  readReplicas:
+    replicaCount: 0
+
+redis:
+  enabled: false
+
+mailhog:
+  enabled: false

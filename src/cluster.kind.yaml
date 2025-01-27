@@ -1,0 +1,33 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: space-onpremise-poc
+nodes:
+  - role: control-plane
+    extraMounts:
+    - hostPath: /tmp/hostpath-provisioner
+      containerPath: /tmp/hostpath-provisioner
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 80
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 443
+        protocol: TCP
+      - containerPort: 63101
+        hostPort: 63101
+        protocol: TCP
+  - role: worker
+  - role: worker
+  - role: worker
+  - role: worker
+  - role: worker
+containerdConfigPatches:
+- |-
+  [plugins."io.containerd.grpc.v1.cri".registry]
+    config_path = "/etc/containerd/certs.d"

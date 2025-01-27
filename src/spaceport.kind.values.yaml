@@ -1,0 +1,144 @@
+fullnameOverride: spaceport
+
+application:
+  image:
+    registry: "registry.jetbrains.team"
+    repository: "p/rdo/nightly-images/codecanvas-app"
+    tag: 177990 # Invalid value to force user to provide
+
+  ingress:
+    hostname: jetbrains.local
+    computeHostname: computeservice.jetbrains.local
+
+  secret:
+    redis:
+      existingSecretName: "spaceport-redis-secret"
+    objectStorage:
+      type: "aws"
+      existingSecretName: "spaceport-minio-secret"
+    auditObjectStorage:
+      type: "aws"
+      existingSecretName: "spaceport-minio-secret-audit"
+    postgresql:
+      existingSecretName: "spaceport-db-secret"
+    codecanvas:
+      masterSecret: "set in kind values"
+      localAdministrator:
+        email: "rdo-support@jetbrains.com"
+        password: "admin"
+      jump:
+        jwtPrivateKey: "set in kind values"
+        jumpHostPrivateKey: "set in kind values"
+      relay:
+        jwtPrivateKey: "set in kind values"
+  config:
+    logging:
+      format: plaintext
+    codecanvas:
+      preload:
+        exampleProject: true
+      licenseAgreementAccepted: true
+      url: http://spaceport-app.kube-space:9084
+      apiBaseUrl: http://spaceport-app.kube-space:8084
+      computeService:
+        url: http://spaceport-app.kube-space:9098
+      rd:
+        auth:
+          strongPassword: false
+        devContainerImage:
+          registry: "registry.jetbrains.team"
+          repository: "p/rdo/dev-containers/dev-container-universal"
+          tag: "latest"
+        sidecarImage:
+          registry: "registry.jetbrains.team"
+          repository: "p/rdo/nightly-images/codecanvas-sidecar"
+      execution:
+        timeouts:
+          deletionDelay: 0m
+        k8s:
+          operator:
+            preloadConfiguration:
+              name: "K8s Default (Preloaded)"
+              instanceId: "preloaded-operator"
+              namespace: "spaceport-rde"
+              jwtPublicKey: "set in script"
+              instanceType:
+                  name: Regular
+                  cpuCores: 4
+                  memoryMiB: 4096
+                  volumeMiB: 10240
+            helmChart:
+              repository: "oci://registry.jetbrains.team/p/rdo/nightly-charts/codecanvas-operator"
+          worker:
+            storageClassName: "kind-csi-hostpath-storage-class"
+            volumeSnapshotClassName: "csi-hostpath-snapclass"
+            image:
+              registry: "registry.jetbrains.team"
+              repository: "p/rdo/nightly-images/codecanvas-worker-k8s"
+      additionalFeatures:
+        - EditFeatureFlagsInUI
+      frontend:
+        url: http://jetbrains.local:80
+        enableWebdriverTestIds: true
+      relay:
+        url: ws://gateway-relay.jetbrains.local:80
+        internalUrl: ws://relay.kube-space:8099 # see relay.fullnameOverride
+      hotPool:
+        enabled: true
+      jump:
+        enabled: true
+        instanceId: "0017962d-e17f-4ea8-b38c-9cd39bc2f0c0"
+        sshHost: jump-ssh.kube-space
+        sshExternalHost: jump.jetbrains.local
+        #sshPort: 63101
+        #sshExternalPort: 63101
+      localFeeds:
+        type: kind
+      testUser:
+        username: test.user
+
+jump:
+  image:
+    registry: "registry.jetbrains.team"
+    repository: "p/rdo/nightly-images/codecanvas-jump"
+  fullnameOverride: jump
+  application:
+    secret:
+      jump:
+        JUMP_INSTANCE_ID: "0017962d-e17f-4ea8-b38c-9cd39bc2f0c0"
+        JUMP_JWT_PRIVATE_KEY: "set in kind values"
+        JUMP_CANVAS_URL: "http://spaceport-app.kube-space:8084"
+        JUMP_SSH_HOST_KEY: "set in kind values"
+    image:
+      registry: "registry.jetbrains.team"
+      repository: "p/rdo/nightly-images/codecanvas-jump"
+
+relay:
+  fullnameOverride: relay
+  application:
+    ingress:
+      hostname: gateway-relay.jetbrains.local
+    secret:
+      relayJwtPublicKey: "set in kind values"
+
+redis:
+  fullnameOverride: redis
+  ## temporal changes: after testing, change behaviour in base values.yaml (disable persistence) and remove all code below
+  persistence:
+    enabled: false
+  global:
+    storageClass: "kind-csi-hostpath-storage-class"
+
+operator:
+  enabled: true
+  image:
+    registry: "registry.jetbrains.team"
+    repository: "p/rdo/nightly-images/codecanvas-operator"
+  operator:
+    secret:
+#      existingSecretName: ""
+      operatorServerUrl: "http://spaceport-app.kube-space:8098"
+      jwtPrivateKey: "set in script"
+      instanceId: "preloaded-operator"
+    ## @param operator.targetNamespace namespace where RDE will be launched
+    targetNamespace: "spaceport-rde"
