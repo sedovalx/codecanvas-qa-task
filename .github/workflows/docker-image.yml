@@ -5,7 +5,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: jetbrains/codecanvas-up 
+  IMAGE_NAME: jetbrains-codecanvas/codecanvas-up 
 
 jobs:
   build-and-push-image:
