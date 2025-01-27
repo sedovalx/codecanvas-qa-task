@@ -1,4 +1,4 @@
-# Quickstart
+# Quickstart for MacOS/Linux
 1. Add the following domains into `/etc/hosts`
     ```
     127.0.0.1 jetbrains.local
