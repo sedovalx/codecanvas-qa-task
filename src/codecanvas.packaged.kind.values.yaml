@@ -4,7 +4,7 @@ application:
   image:
     registry: ghcr.io
     repository: sedovalx/codecanvas-qa-task/codecanvas-app
-    tag: 2024.3-dev.895
+    tag: 2025.1-rc.890
   ingress:
     hostname: jetbrains.local
     computeHostname: computeservice.jetbrains.local
