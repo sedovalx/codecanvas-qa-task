@@ -52,6 +52,8 @@ application:
           deletionDelay: 0m
         k8s:
           operator:
+            helmChart:
+              repository: "oci://ghcr.io/sedovalx/codecanvas-qa-task/charts/codecanvas-operator"
             preloadConfiguration:
               name: "K8s Default (Preloaded)"
               instanceId: "preloaded-operator"
