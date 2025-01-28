@@ -20,6 +20,7 @@ failure() {
 }
 
 CLUSTER_NAME="spaceport-kind"
+export KUBECONFIG="${KUBECONFIG:-~/.kube/codecanvas.config}"
 
 EXISTING_CLUSTER=$(docker container ls | grep "${CLUSTER_NAME}-control-plane" || true)
 if [[ -z "${EXISTING_CLUSTER}" ]]; then
