@@ -17,7 +17,7 @@ Available options:
 
 --atomic          Pass atomic argument to helm install
 --wait-healthy    Wait for jetbrains.local to be up and running
---chart-url       Chart url, e.g. oci://registry.jetbrains.team/p/rdo/nightly-charts/codecanvas
+--chart-url       Chart url, e.g. oci://ghcr.io/sedovalx/codecanvas-qa-task/charts/codecanvas
 --chart-version   Chart version, if it is not provided but chart-url is specified, the latest one will be retrieved
 --chart-archive   Path to the chart archive
 -h, --help        Print this help and exit

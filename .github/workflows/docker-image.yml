@@ -35,6 +35,8 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha
+          flavor: |
+            latest=auto
 
       - name: Build and push Docker image
         id: push
