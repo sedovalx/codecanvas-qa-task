@@ -1,16 +1,5 @@
 FROM docker:27.5.1-cli-alpine3.21
 
-WORKDIR /app/kind-bootstrapper
-
-COPY ./src .
-COPY ./install-kubectl.sh .
-COPY ./install-kind.sh .
-
-ENV KUBE_DIR="/app/kind-bootstrapper/kube"
-ENV KUBECONFIG="${KUBE_DIR}/codecanvas.config"
-
-RUN mkdir -p $KUBE_DIR
-VOLUME $KUBE_DIR
 
 # hadolint ignore=DL3018,DL3003,SC2035
 RUN apk add bash --no-cache &&\
@@ -21,9 +10,19 @@ RUN apk add bash --no-cache &&\
     ./get_helm.sh && \
     rm -f get_helm.sh
 
+WORKDIR /app/kind-bootstrapper
+
+ENV KUBE_DIR="/app/kind-bootstrapper/kube"
+ENV KUBECONFIG="${KUBE_DIR}/codecanvas.config"
+
+RUN mkdir -p $KUBE_DIR
+VOLUME $KUBE_DIR
+COPY ./install-kubectl.sh .
+COPY ./install-kind.sh .
 RUN /app/kind-bootstrapper/install-kind.sh
 RUN /app/kind-bootstrapper/install-kubectl.sh
 
-ENTRYPOINT ["./cc-up.sh"]
-
-
+COPY ./src .
+COPY ./codecanvas.tgz .
+ENV PATH="/app/kind-bootstrapper/:$PATH"
+ENTRYPOINT ["./main.sh"]

@@ -22,11 +22,17 @@
     docker run --rm -v "$(pwd)/kubedir:/app/kind-bootstrapper/kube" \
       -v /var/run/docker.sock:/var/run/docker.sock \
       --network host  \
-      ghcr.io/sedovalx/codecanvas-qa-task/codecanvas-up:latest \
-      --chart-url oci://ghcr.io/sedovalx/codecanvas-qa-task/charts/codecanvas --chart-version 2025.1-rc.890
+      ghcr.io/sedovalx/codecanvas-qa-task/codecanvas-up:latest codecanvas-up
     ```
 3. Run `export KUBECONFIG=./kubedir/codecanvas.config` in the same directory if you want to access cluster via kubectl
 4. Open http://jetbrains.local. Username/password is `admin`
+5. To shut down the cluster run
+    ```
+    docker run --rm -v "$(pwd)/kubedir:/app/kind-bootstrapper/kube" \
+      -v /var/run/docker.sock:/var/run/docker.sock \
+      --network host  \
+      ghcr.io/sedovalx/codecanvas-qa-task/codecanvas-up:latest codecanvas-down
+    ```
 
 If the installation process doesn't go well and you want to repeat, there is cleanup to be done. You need to install [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) locally and execute to delete the Kind cluster that was created locally during the installation.
 ```
@@ -56,5 +62,5 @@ kind delete cluster --name spaceport-kind
     127.0.0.1 jump.jetbrains.local
     127.0.0.1 gateway-relay.jetbrains.local
     ```
-2. Run `cc-up.sh --chart-url oci://ghcr.io/sedovalx/codecanvas-qa-task/charts/codecanvas --chart-version 2025.1-rc.890` in the src directory.
+2. Run `codecanvas-up` in the src directory.
 3. Open http://jetbrains.local. Username/password is `admin`

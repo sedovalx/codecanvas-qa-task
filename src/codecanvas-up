@@ -161,8 +161,7 @@ case "$(openssl version)" in
 esac
 
 
-HELM_CHART="$CHART_URL"
-HELM_ARGS+=(--version="$CHART_VERSION")
+HELM_CHART="./codecanvas.tgz"
 HELM_ARGS+=(-f "$script_dir/codecanvas.packaged.kind.values.yaml")
 HELM_INSTALL_MESSAGE="Installing CodeCanvas chart $CHART_URL $CHART_VERSION"
 
