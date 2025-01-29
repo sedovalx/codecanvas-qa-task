@@ -28,6 +28,11 @@
 3. Run `export KUBECONFIG=./kubedir/codecanvas.config` in the same directory if you want to access cluster via kubectl
 4. Open http://jetbrains.local. Username/password is `admin`
 
+If the installation process doesn't go well and you want to repeat, there is cleanup to be done. You need to install [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) locally and execute to delete the Kind cluster that was created locally during the installation.
+```
+kind delete cluster --name spaceport-kind
+```
+
 # Quickstart w/o Docker
 
 ## Requirements
