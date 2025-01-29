@@ -5,9 +5,6 @@ application:
     # registry: ghcr.io
     # repository: sedovalx/codecanvas-qa-task/codecanvas-app
     # tag: 2025.1-rc.890
-    registry: registry.jetbrains.team
-    repository: p/rdo/nightly-images/codecanvas-app
-    tag: 2025.1-rc.875
   ingress:
     hostname: jetbrains.local
     computeHostname: computeservice.jetbrains.local
@@ -50,8 +47,6 @@ application:
         sidecarImage:
           # registry: ghcr.io
           # repository: sedovalx/codecanvas-qa-task/codecanvas-sidecar
-          registry: registry.jetbrains.team
-          repository: p/rdo/nightly-images/codecanvas-sidecar
       execution:
         timeouts:
           deletionDelay: 0m
@@ -73,8 +68,6 @@ application:
             image:
               # registry: ghcr.io
               # repository: sedovalx/codecanvas-qa-task/codecanvas-worker-k8s
-              registry: registry.jetbrains.team
-              repository: p/rdo/nightly-images/codecanvas-worker-k8s
             storageClassName: "kind-csi-hostpath-storage-class"
             volumeSnapshotClassName: "csi-hostpath-snapclass"
       frontend:
@@ -109,8 +102,6 @@ jump:
     image:
       # registry: ghcr.io
       # repository: sedovalx/codecanvas-qa-task/codecanvas-jump
-      registry: registry.jetbrains.team
-      repository: p/rdo/nightly-images/codecanvas-jump
 
 relay:
   fullnameOverride: relay
@@ -139,6 +130,4 @@ operator:
     targetNamespace: "spaceport-rde"
   image:
     # registry: ghcr.io
-    # repository: sedovalx/codecanvas-qa-task/codecanvas-operator
-    registry: registry.jetbrains.team
-    repository: p/rdo/nightly-images/codecanvas-operator    
+    # repository: sedovalx/codecanvas-qa-task/codecanvas-operator 
