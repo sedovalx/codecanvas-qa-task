@@ -33,7 +33,7 @@ If the installation process doesn't go well and you want to repeat, there is cle
 kind delete cluster --name spaceport-kind
 ```
 
-# Quickstart w/o Docker
+# Quickstart w/o Docker (disregard)
 
 ## Requirements
 
