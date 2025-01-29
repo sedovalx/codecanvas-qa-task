@@ -87,3 +87,4 @@ When you don't need the installation and the Kind cluster anymore we recommend d
   docker container rm --force kind-registry
   ```
 - Inspect and delete related docker images
+- Remove the lines in `/etc/hosts`
