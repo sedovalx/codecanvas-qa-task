@@ -2,9 +2,12 @@ fullnameOverride: spaceport
 
 application:
   image:
-    registry: ghcr.io
-    repository: sedovalx/codecanvas-qa-task/codecanvas-app
-    tag: 2025.1-rc.890
+    # registry: ghcr.io
+    # repository: sedovalx/codecanvas-qa-task/codecanvas-app
+    # tag: 2025.1-rc.890
+    registry: registry.jetbrains.team
+    repository: p/rdo/nightly-images/codecanvas-app
+    tag: 2025.1-rc.875
   ingress:
     hostname: jetbrains.local
     computeHostname: computeservice.jetbrains.local
@@ -45,15 +48,17 @@ application:
         auth:
           strongPassword: false
         sidecarImage:
-          registry: ghcr.io
-          repository: sedovalx/codecanvas-qa-task/codecanvas-sidecar
+          # registry: ghcr.io
+          # repository: sedovalx/codecanvas-qa-task/codecanvas-sidecar
+          registry: registry.jetbrains.team
+          repository: p/rdo/nightly-images/codecanvas-sidecar
       execution:
         timeouts:
           deletionDelay: 0m
         k8s:
           operator:
             helmChart:
-              repository: "oci://ghcr.io/sedovalx/codecanvas-qa-task/charts/codecanvas-operator"
+              repository: "oci://registry.jetbrains.team/p/rdo/nightly-charts/codecanvas-operator"
             preloadConfiguration:
               name: "K8s Default (Preloaded)"
               instanceId: "preloaded-operator"
@@ -66,8 +71,10 @@ application:
                   volumeMiB: 10240
           worker:
             image:
-              registry: ghcr.io
-              repository: sedovalx/codecanvas-qa-task/codecanvas-worker-k8s
+              # registry: ghcr.io
+              # repository: sedovalx/codecanvas-qa-task/codecanvas-worker-k8s
+              registry: registry.jetbrains.team
+              repository: p/rdo/nightly-images/codecanvas-worker-k8s
             storageClassName: "kind-csi-hostpath-storage-class"
             volumeSnapshotClassName: "csi-hostpath-snapclass"
       frontend:
@@ -100,8 +107,10 @@ jump:
         JUMP_CANVAS_URL: "http://spaceport-app.kube-space:8084"
         JUMP_SSH_HOST_KEY: "set in kind values"
     image:
-      registry: ghcr.io
-      repository: sedovalx/codecanvas-qa-task/codecanvas-jump
+      # registry: ghcr.io
+      # repository: sedovalx/codecanvas-qa-task/codecanvas-jump
+      registry: registry.jetbrains.team
+      repository: p/rdo/nightly-images/codecanvas-jump
 
 relay:
   fullnameOverride: relay
@@ -129,5 +138,7 @@ operator:
     ## @param operator.targetNamespace namespace where RDE will be launched
     targetNamespace: "spaceport-rde"
   image:
-    registry: ghcr.io
-    repository: sedovalx/codecanvas-qa-task/codecanvas-operator
+    # registry: ghcr.io
+    # repository: sedovalx/codecanvas-qa-task/codecanvas-operator
+    registry: registry.jetbrains.team
+    repository: p/rdo/nightly-images/codecanvas-operator    
