@@ -1,7 +1,7 @@
 fullnameOverride: spaceport
 
 application:
-  image:
+  # image:
     # registry: ghcr.io
     # repository: sedovalx/codecanvas-qa-task/codecanvas-app
     # tag: 2025.1-rc.890
@@ -44,7 +44,7 @@ application:
       rd:
         auth:
           strongPassword: false
-        sidecarImage:
+        # sidecarImage:
           # registry: ghcr.io
           # repository: sedovalx/codecanvas-qa-task/codecanvas-sidecar
       execution:
@@ -52,8 +52,8 @@ application:
           deletionDelay: 0m
         k8s:
           operator:
-            helmChart:
-              repository: "oci://registry.jetbrains.team/p/rdo/nightly-charts/codecanvas-operator"
+            # helmChart:
+            #   repository: "oci://registry.jetbrains.team/p/rdo/nightly-charts/codecanvas-operator"
             preloadConfiguration:
               name: "K8s Default (Preloaded)"
               instanceId: "preloaded-operator"
@@ -65,7 +65,7 @@ application:
                   memoryMiB: 4096
                   volumeMiB: 10240
           worker:
-            image:
+            # image:
               # registry: ghcr.io
               # repository: sedovalx/codecanvas-qa-task/codecanvas-worker-k8s
             storageClassName: "kind-csi-hostpath-storage-class"
@@ -99,7 +99,7 @@ jump:
         JUMP_JWT_PRIVATE_KEY: "set in kind values"
         JUMP_CANVAS_URL: "http://spaceport-app.kube-space:8084"
         JUMP_SSH_HOST_KEY: "set in kind values"
-    image:
+    # image:
       # registry: ghcr.io
       # repository: sedovalx/codecanvas-qa-task/codecanvas-jump
 
@@ -128,6 +128,6 @@ operator:
       instanceId: "preloaded-operator"
     ## @param operator.targetNamespace namespace where RDE will be launched
     targetNamespace: "spaceport-rde"
-  image:
+  # image:
     # registry: ghcr.io
     # repository: sedovalx/codecanvas-qa-task/codecanvas-operator 
