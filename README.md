@@ -7,11 +7,11 @@ CodeCanvas is meant to be installed in k8s, and [Kind](https://kind.sigs.k8s.io/
 
 ## Requirements for the local machine
 - MacOS or Linux. Or, WSL for Windows.
-- Latest Docker. E.g. [Docker Desktop](https://www.docker.com/products/docker-desktop/) 4.37.2.
+- Latest Docker. E.g. [Docker Desktop](https://www.docker.com/products/docker-desktop/) 4.37.2. You may also use other docker alternatives of your choice, such as [OrbStack](https://orbstack.dev/) or [Colima](https://github.com/abiosoft/colima).
 - (optional) Locally installed [Kind](https://kind.sigs.k8s.io/). It is not needed for the installation, but is necessary for the cleanup purposes later.
 - (optional) [kubectl](https://kubernetes.io/docs/tasks/tools/) CLI. It is not needed for the installation, but might be useful to check the state of the k8s pods in case of problems.
 - At least 40 GB of the disk space allocated for Docker
-- At least 16 GB RAM allocated for Docker
+- At least 20 GB RAM allocated for Docker
 - At least 8 CPU allocated for Docker
 - [JetBrains Gateway](https://www.jetbrains.com/remote-development/gateway/). It is not needed for the installation but is necessary later to connect to started dev environments.
 - At least 40-60 MB/S Internet connection. Likely everything will work with a lesser speed but there might be errors because of timeouts for downloading processes.
